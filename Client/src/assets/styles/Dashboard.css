@@ -1,0 +1,77 @@
+.job-detail {
+  max-width: 720px;
+  margin: 3rem auto;
+  padding: 1.8rem 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+.company {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3498db;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.location {
+  font-size: 1.1rem;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #7f8c8d;
+}
+
+.description, .requirements {
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: #34495e;
+}
+
+.deadline {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #e74c3c;
+  margin-bottom: 2rem;
+}
+
+.apply-button {
+  display: block;
+  width: 220px;
+  margin: 0 auto;
+  padding: 0.85rem 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background 0.4s ease;
+}
+
+.apply-button:hover {
+  background: linear-gradient(90deg, #2980b9 0%, #2471a3 100%);
+  cursor: pointer;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #555;
+  margin-top: 3rem;
+}

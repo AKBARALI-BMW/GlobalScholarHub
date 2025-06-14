@@ -1,0 +1,485 @@
+/* Reset & basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body layout to handle fixed header and footer */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content wrapper - this pushes content below header and above footer */
+.main-content {
+  margin-top: 87px; /* Match your header height */
+  flex: 1; /* Takes remaining space between header and footer */
+  min-height: calc(100vh - 87px); /* Ensures minimum height minus header */
+  padding-bottom: 20px; /* Optional spacing above footer */
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(13, 28, 70, 0.9);
+  padding: 20px 20px;
+  height: 87px; /* Fixed height for consistency */
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(28, 180, 198, 0.15);
+  border-bottom: 1px solid rgba(28, 180, 198, 0.3);
+}
+
+.header.scrolled {
+  background: #121e3b;
+  padding: 10px 20px;
+  height: 67px; /* Reduced height when scrolled */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust main content when header is scrolled */
+.header.scrolled ~ .main-content {
+  margin-top: 67px;
+}
+
+.container {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 auto;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: inline-block;
+}
+
+.logo:hover {
+  color: #14a1b0;
+}
+
+/* Navigation Menu */
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav ul li {
+  position: relative;
+}
+
+.nav ul li a,
+.dropdown-toggle {
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 8px 5px;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover,
+.dropdown-toggle:hover {
+  color: #1cb4c6;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #121e3b;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  min-width: 180px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 10000;
+  flex-direction: column;
+  padding: 8px 0;
+  pointer-events: none;
+}
+
+.dropdown-menu.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu li a {
+  padding: 10px 20px;
+  display: block;
+  font-size: 14px;
+  color: #ccc;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #1cb4c6;
+  color: #fff !important;
+  border-radius: 4px;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auth-buttons .btn {
+  color: white;
+  border: 1px solid #1cb4c6;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.auth-buttons .btn:hover {
+  background-color: #1cb4c6;
+  color: #121e3b;
+}
+
+/* Admin dashboard button styling */
+.admin-link {
+  font-weight: 600;
+  background-color: #0e96a5;
+  border-color: #0e96a5;
+}
+
+.admin-link:hover {
+  background-color: #14a1b0;
+  border-color: #14a1b0;
+  color: white;
+}
+
+/* User name styling */
+.auth-buttons span {
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 8px;
+}
+
+/* Smart Career Recommendations button */
+.ai-recommendations-btn {
+  margin-left: 12px;
+}
+
+.ai-recommendations-btn button {
+  background-color: #1cb4c6;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
+}
+
+.ai-recommendations-btn button:hover {
+  background-color: #14a1b0;
+}
+
+/* Recommendations Section Styling */
+.recommendations {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recommendations h3 {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.recommendations div {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+}
+
+.recommendations div h4 {
+  color: #1cb4c6;
+}
+
+.recommendations div p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Recommendations Modal */
+.recommendations-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.recommendations-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.recommendations-section {
+  margin-bottom: 2rem;
+}
+
+.recommendations-section h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.recommendation-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-2px);
+}
+
+.recommendation-card h4 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.recommendation-card .company,
+.recommendation-card .provider {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.recommendation-card .location {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-tag {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.view-details {
+  display: inline-block;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.view-details:hover {
+  text-decoration: underline;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #1cb4c6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-indicator p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Error Message Improvements */
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8d7da;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.error-message h3 {
+  color: #dc3545;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.error-message p {
+  color: #721c24;
+  margin-bottom: 1.5rem;
+}
+
+.error-message .btn {
+  display: inline-block;
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.error-message .btn:hover {
+  background-color: #c82333;
+}
+
+/* Recommendations Message */
+.recommendations-message {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+/* Loading state for the recommendations button */
+.ai-recommendations-btn button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* No Recommendations */
+.no-recommendations {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.no-recommendations p {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.no-recommendations p:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.no-recommendations .btn {
+  display: inline-block;
+  background-color: #1cb4c6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.no-recommendations .btn:hover {
+  background-color: #14a1b0;
+}
