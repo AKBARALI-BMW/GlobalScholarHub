@@ -1,3 +1,6 @@
+/* Import modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 /* Reset & basics */
 * {
   margin: 0;
@@ -10,6 +13,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Main content wrapper - this pushes content below header and above footer */
@@ -20,26 +24,65 @@ body {
   padding-bottom: 20px; /* Optional spacing above footer */
 }
 
-/* Header Styles */
+/* Modern Header Styles with Glassmorphism */
 .header {
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(13, 28, 70, 0.9);
-  padding: 20px 20px;
-  height: 87px; /* Fixed height for consistency */
-  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, 
+    rgba(17, 34, 85, 0.95) 0%, 
+    rgba(28, 180, 198, 0.1) 50%,
+    rgba(13, 28, 70, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px 0;
+  height: 87px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 2px 8px rgba(28, 180, 198, 0.15);
-  border-bottom: 1px solid rgba(28, 180, 198, 0.3);
+  font-family: 'Inter', sans-serif;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 0 0 1px rgba(28, 180, 198, 0.1);
+  border-bottom: 1px solid rgba(28, 180, 198, 0.2);
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg, 
+    rgba(28, 180, 198, 0.03) 0%, 
+    rgba(28, 180, 198, 0.08) 50%, 
+    rgba(28, 180, 198, 0.03) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.header:hover::before {
+  opacity: 1;
 }
 
 .header.scrolled {
-  background: #121e3b;
-  padding: 10px 20px;
-  height: 67px; /* Reduced height when scrolled */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(18, 30, 59, 0.98) 0%, 
+    rgba(28, 180, 198, 0.08) 50%,
+    rgba(18, 30, 59, 0.98) 100%
+  );
+  padding: 12px 0;
+  height: 67px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 0 0 1px rgba(28, 180, 198, 0.2);
+  border-bottom: 1px solid rgba(28, 180, 198, 0.3);
 }
 
 /* Adjust main content when header is scrolled */
@@ -49,38 +92,88 @@ body {
 
 .container {
   background: transparent !important;
-  padding: 0 !important;
+  padding: 0 24px !important;
   margin: 0 auto;
   max-width: 1200px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
+/* Modern Logo Styling */
 .logo {
-  background: transparent !important;
+  /* background: transparent !important; */
   padding: 0 !important;
   margin: 0 !important;
   box-shadow: none !important;
   display: inline-block;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #689c98 0%, #1cb4c6 60%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  letter-spacing: -0.5px;
+  /* Removed conflicting color properties */
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: linear-gradient(45deg, 
+    rgba(28, 180, 198, 0.1), 
+    rgba(255, 255, 255, 0.05),
+    rgba(28, 180, 198, 0.1)
+  );
+  border-radius: 16px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
 }
 
 .logo:hover {
-  color: #14a1b0;
+  transform: scale(1.05) translateY(-1px);
+  filter: drop-shadow(0 5px 20px rgba(28, 180, 198, 0.4));
 }
 
-/* Navigation Menu */
+.logo:hover::before {
+  opacity: 1;
+}
+
+.header.scrolled .logo {
+  font-size: 24px;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+  .logo {
+    color: #1cb4c6;
+  }
+}
+
+/* Navigation Menu Enhancement */
 .nav {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: center;
+  margin: 0 40px;
 }
 
 .nav ul {
   display: flex;
   list-style: none;
   align-items: center;
-  gap: 25px;
+  gap: 32px;
 }
 
 .nav ul li {
@@ -89,64 +182,108 @@ body {
 
 .nav ul li a,
 .dropdown-toggle {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 16px;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   background: none;
   border: none;
   font-family: inherit;
-  padding: 8px 5px;
-  transition: color 0.3s ease;
+  padding: 12px 16px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav ul li a::before,
+.dropdown-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.nav ul li a:hover::before,
+.dropdown-toggle:hover::before {
+  left: 100%;
 }
 
 .nav ul li a:hover,
 .dropdown-toggle:hover {
-  color: #1cb4c6;
+  color: #ffffff;
+  background: linear-gradient(135deg, 
+    rgba(28, 180, 198, 0.2) 0%, 
+    rgba(28, 180, 198, 0.1) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(28, 180, 198, 0.15);
 }
 
-/* Dropdown Menu */
+/* Enhanced Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
-  background: #121e3b;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  min-width: 180px;
+  background: linear-gradient(135deg, 
+    rgba(18, 30, 59, 0.98) 0%, 
+    rgba(13, 28, 70, 0.98) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 0 0 1px rgba(28, 180, 198, 0.2);
+  min-width: 200px;
   visibility: hidden;
   opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10000;
   flex-direction: column;
-  padding: 8px 0;
+  padding: 12px;
   pointer-events: none;
 }
 
 .dropdown-menu.show {
   visibility: visible;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
 .dropdown-menu li {
   padding: 0;
+  margin: 2px 0;
 }
 
 .dropdown-menu li a {
-  padding: 10px 20px;
+  padding: 12px 16px;
   display: block;
   font-size: 14px;
-  color: #ccc;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .dropdown-menu li a:hover {
-  background-color: #1cb4c6;
-  color: #fff !important;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #1cb4c6 0%, #14a1b0 100%);
+  color: #ffffff !important;
+  transform: translateX(4px);
+  box-shadow: 0 4px 15px rgba(28, 180, 198, 0.3);
 }
 
 /* Mobile Menu Toggle */
@@ -157,42 +294,92 @@ body {
   border: none;
   color: white;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-/* Auth Buttons */
+.menu-toggle:hover {
+  background: rgba(28, 180, 198, 0.2);
+  transform: scale(1.1);
+}
+
+/* Enhanced Auth Buttons */
 .auth-buttons {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
 }
 
 .auth-buttons .btn {
+  position: relative;
   color: white;
-  border: 1px solid #1cb4c6;
-  padding: 6px 14px;
-  border-radius: 4px;
+  background: linear-gradient(135deg, 
+    rgba(28, 180, 198, 0.2) 0%, 
+    rgba(28, 180, 198, 0.1) 100%
+  );
+  border: 1px solid rgba(28, 180, 198, 0.4);
+  padding: 12px 24px;
+  border-radius: 12px;
   font-size: 14px;
+  font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.auth-buttons .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.auth-buttons .btn:hover::before {
+  left: 100%;
 }
 
 .auth-buttons .btn:hover {
-  background-color: #1cb4c6;
-  color: #121e3b;
+  background: linear-gradient(135deg, 
+    rgba(28, 180, 198, 0.4) 0%, 
+    rgba(28, 180, 198, 0.2) 100%
+  );
+  border-color: rgba(28, 180, 198, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 25px rgba(28, 180, 198, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header.scrolled .auth-buttons .btn {
+  padding: 10px 20px;
+  font-size: 13px;
 }
 
 /* Admin dashboard button styling */
 .admin-link {
   font-weight: 600;
-  background-color: #0e96a5;
+  background: linear-gradient(135deg, #0e96a5 0%, #1cb4c6 100%) !important;
   border-color: #0e96a5;
+  box-shadow: 0 4px 15px rgba(14, 150, 165, 0.3);
 }
 
 .admin-link:hover {
-  background-color: #14a1b0;
+  background: linear-gradient(135deg, #14a1b0 0%, #1cb4c6 100%) !important;
   border-color: #14a1b0;
   color: white;
+  box-shadow: 0 8px 25px rgba(20, 161, 176, 0.4);
 }
 
 /* User name styling */
@@ -203,27 +390,110 @@ body {
   margin-left: 8px;
 }
 
-/* Smart Career Recommendations button */
+/* Smart Career Recommendations button enhancement */
 .ai-recommendations-btn {
   margin-left: 12px;
+  position: relative;
+}
+
+.ai-recommendations-btn::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: linear-gradient(45deg, 
+    rgba(28, 180, 198, 0.2), 
+    rgba(255, 255, 255, 0.1),
+    rgba(28, 180, 198, 0.2)
+  );
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.ai-recommendations-btn:hover::before {
+  opacity: 1;
 }
 
 .ai-recommendations-btn button {
-  background-color: #1cb4c6;
+  background: linear-gradient(135deg, #1cb4c6 0%, #14a1b0 100%);
   color: white;
   border: none;
-  padding: 8px 20px;
+  padding: 12px 20px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(28, 180, 198, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-recommendations-btn button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.ai-recommendations-btn button:hover::before {
+  left: 100%;
 }
 
 .ai-recommendations-btn button:hover {
-  background-color: #14a1b0;
+  background: linear-gradient(135deg, #14a1b0 0%, #0e96a5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(28, 180, 198, 0.4);
 }
 
-/* Recommendations Section Styling */
+/* Clerk UserButton Wrapper Enhancement */
+.auth-buttons > div:last-child {
+  position: relative;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.auth-buttons > div:last-child::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, 
+    #1cb4c6, 
+    #ffffff, 
+    #1cb4c6
+  );
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  animation: rotate 3s linear infinite;
+}
+
+.auth-buttons > div:last-child:hover::before {
+  opacity: 0.7;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Rest of the existing styles remain the same... */
 .recommendations {
   margin-top: 20px;
   padding: 20px;
@@ -482,4 +752,42 @@ body {
 
 .no-recommendations .btn:hover {
   background-color: #14a1b0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px !important;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .ai-recommendations-btn {
+    display: none;
+  }
+  
+  .auth-buttons .btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 20px;
+  }
+  
+  .auth-buttons {
+    gap: 8px;
+  }
 }
