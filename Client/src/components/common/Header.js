@@ -28,15 +28,17 @@ const Header = () => {
         {/* Navigation menu */}
         <Navigation />
 
-        {/* AI-powered recommendations button */}
-        {!user?.publicMetadata?.role === "admin" && user && (
+        {/* Recommendations Button (only for non-admin users) */}
+        {user && user.publicMetadata?.role !== "admin" && (
           <RecommendationsButton />
         )}
 
         {/* Auth Buttons */}
         <div className="auth-buttons">
           {!user ? (
-            <Link to="/signin" className="btn">Sign In</Link>
+            <Link to="/signin" className="btn">
+              Sign In
+            </Link>
           ) : (
             <UserButton afterSignOutUrl="/" />
           )}

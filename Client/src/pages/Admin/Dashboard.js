@@ -87,18 +87,18 @@ const Dashboard = () => {
             <h2>Jobs</h2>
             <div className="card-actions">
               <button 
-                className="action-btn btn-post" 
+                className="action-btn jobs-post-btn" 
                 onClick={() => navigate("/postjob")}
               >
                 <span className="btn-icon">📝</span>
-                Post New Job
+                Post Job
               </button>
               <button 
-                className="action-btn btn-delete" 
+                className="action-btn jobs-delete-btn" 
                 onClick={() => navigate("/dltjob")}
               >
                 <span className="btn-icon">🗑️</span>
-                Delete Listed Jobs
+                Delete  Jobs
               </button>
             </div>
           </section>
@@ -109,18 +109,18 @@ const Dashboard = () => {
             <h2>Scholarships</h2>
             <div className="card-actions">
               <button 
-                className="action-btn btn-post" 
+                className="action-btn scholarships-post-btn" 
                 onClick={() => navigate("/postscholarship")}
               >
                 <span className="btn-icon">📝</span>
-                Post New Scholarship
+                Post  Scholarship
               </button>
               <button 
-                className="action-btn btn-delete" 
+                className="action-btn scholarships-delete-btn" 
                 onClick={() => navigate("/dltscholarship")}
               >
                 <span className="btn-icon">🗑️</span>
-                Delete Listed Scholarships
+                Delete  Scholarships
               </button>
             </div>
           </section>
@@ -131,18 +131,18 @@ const Dashboard = () => {
             <h2>Internships</h2>
             <div className="card-actions">
               <button 
-                className="action-btn btn-post" 
+                className="action-btn internships-post-btn" 
                 onClick={() => navigate("/postinternship")}
               >
                 <span className="btn-icon">📝</span>
-                Post New Internship
+                Post Internship
               </button>
               <button 
-                className="action-btn btn-delete-alt" 
+                className="action-btn internships-delete-btn" 
                 onClick={() => navigate("/dltinternship")}
               >
                 <span className="btn-icon">🗑️</span>
-                Delete Listed Internships
+                Delete  Internships
               </button>
             </div>
           </section>
@@ -153,4 +153,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Spinner, Alert, Button } from "react-bootstrap";
 import { fetchJobs, deleteJob } from "../../api/jobs";
 import { useNavigate } from "react-router-dom";
-import "../../assets/styles/JobsDelete.css"; // New CSS file for this UI
+import "../../assets/styles/JobsDelete.css"; // Import the beautiful CSS file
 
 const JobsDelete = () => {
   const [jobs, setJobs] = useState([]);
@@ -10,7 +10,6 @@ const JobsDelete = () => {
   const [error, setError] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const loadJobs = async () => {
@@ -44,87 +43,119 @@ const JobsDelete = () => {
   if (loading)
     return (
       <div className="jobs-loading">
-        <Spinner animation="border" variant="primary" />
-        <p>Loading jobs...</p>
+        <div className="jobs-loading-container">
+          <div className="jobs-loading-spinner"></div>
+          <p className="jobs-loading-text">Loading jobs...</p>
+        </div>
       </div>
     );
 
   if (error)
     return (
-      <Alert variant="danger" className="jobs-error">
-        {error}
-      </Alert>
+      <div className="jobs-error-container">
+        <div className="jobs-error-card">
+          <div className="jobs-error-icon">⚠️</div>
+          <h3 className="jobs-error-title">Error</h3>
+          <p className="jobs-error-message">{error}</p>
+        </div>
+      </div>
     );
 
   return (
     <div className="jobs-list-portal">
-      <header className="jobs-header">JOBS LIST</header>
+      {/* Header */}
+      <div className="jobs-header-container">
+        <h1 className="jobs-header">Job Management</h1>
+        <p className="jobs-subtitle">Manage and organize your job listings</p>
+      </div>
 
+      {/* Main Content */}
       <main className="jobs-main">
         {jobs.length === 0 ? (
-          <p className="no-jobs">No jobs found.</p>
+          <div className="no-jobs-container">
+            <div className="no-jobs-icon">📋</div>
+            <h3 className="no-jobs-title">No Jobs Found</h3>
+            <p className="no-jobs-text">
+              There are no job listings to display at the moment.
+            </p>
+          </div>
         ) : (
-          jobs.map((job) => (
-            <article key={job._id} className="job-card">
-              <div className="job-image-container">
-                {job.image ? (
-                  <img
-                    src={job.image.startsWith("http") ? job.image : `/uploads/${job.image}`}
-                    alt={`${job.company || "Company"} logo`}
-                    className="job-image"
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className="no-image-text">No Image</span>
-                )}
-              </div>
-
-              <div className="job-details">
-                <h2 className="job-title">{job.title || "NO TITLE"}</h2>
-                <p className="job-company">{job.company || "Unknown Company"}</p>
-
-                <p className="job-location">
-                  <strong>Location:</strong> {job.location || "N/A"}
-                </p>
-                <p className="job-category">
-                  <strong>Category:</strong> {job.category || "N/A"}
-                </p>
-
-                <p className="job-description">{job.description || "No description available."}</p>
-
-                {job.closingDate && (
-                  <p className="job-closing-date">
-                    Closing Date:{" "}
-                    {new Date(job.closingDate).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                )}
-
-                <div className="job-buttons">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleDelete(job._id)}
-                    disabled={deletingId === job._id}
-                    className="btn-delete"
-                  >
-                    {deletingId === job._id ? "Deleting..." : "Delete"}
-                  </Button>
-                  <Button
-                    variant="outline-primary"
-                    size="sm"
-                    onClick={() => navigate(`/job/${job._id}`)}
-                    className="btn-view"
-                  >
-                    View Details
-                  </Button>
+          <div className="jobs-grid">
+            {jobs.map((job) => (
+              <article key={job._id} className="job-card">
+                {/* Image Section */}
+                <div className="job-image-container">
+                  {job.image ? (
+                    <img
+                      src={job.image.startsWith("http") ? job.image : `/uploads/${job.image}`}
+                      alt={`${job.company || "Company"} logo`}
+                      className="job-image"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="no-image-text">🏢</div>
+                  )}
+                  <div className="job-category-badge">
+                    {job.category || "General"}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))
+
+                {/* Content Section */}
+                <div className="job-details">
+                  <h2 className="job-title">{job.title || "NO TITLE"}</h2>
+                  <p className="job-company">{job.company || "Unknown Company"}</p>
+
+                  {/* Job Information */}
+                  <div className="job-info-container">
+                    <div className="job-info-item">
+                      <span className="job-info-icon">📍</span>
+                      <span>{job.location || "N/A"}</span>
+                    </div>
+                    
+                    {job.closingDate && (
+                      <div className="job-info-item">
+                        <span className="job-info-icon">📅</span>
+                        <span>
+                          Closes: {new Date(job.closingDate).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="job-description">
+                    {job.description 
+                      ? (job.description.length > 150 
+                          ? job.description.substring(0, 150) + "..." 
+                          : job.description)
+                      : "No description available."
+                    }
+                  </p>
+
+                  {/* Action Buttons */}
+                  <div className="job-buttons">
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(job._id)}
+                      disabled={deletingId === job._id}
+                    >
+                      {deletingId === job._id ? "Deleting..." : "Delete Job"}
+                    </button>
+                    
+                    <button
+                      className="btn-view"
+                      onClick={() => navigate(`/job/${job._id}`)}
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         )}
       </main>
     </div>

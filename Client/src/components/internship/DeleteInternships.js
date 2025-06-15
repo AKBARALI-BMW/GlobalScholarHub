@@ -9,6 +9,8 @@ const DeleteInternships = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,68 +42,180 @@ const DeleteInternships = () => {
     }
   };
 
+  // Filter internships based on search term and category
+  const filteredInternships = internships.filter((internship) => {
+    const matchesSearch = 
+      internship.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      internship.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      internship.location?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = 
+      filterCategory === "" || internship.category === filterCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  // Get unique categories for filter dropdown
+  const categories = [...new Set(internships.map(internship => internship.category).filter(Boolean))];
+
   if (loading)
     return (
       <div className="internships-loading">
-        <Spinner animation="border" variant="primary" />
-        <p>Loading internships...</p>
+        <div className="loading-spinner">
+          <Spinner animation="border" variant="primary" />
+          <p>Loading internships...</p>
+        </div>
       </div>
     );
 
   if (error)
     return (
-      <Alert variant="danger" className="internships-error">
-        {error}
-      </Alert>
+      <div className="internships-error-container">
+        <Alert variant="danger" className="internships-error">
+          <div className="error-content">
+            <i className="fas fa-exclamation-triangle"></i>
+            {error}
+          </div>
+        </Alert>
+      </div>
     );
 
   return (
-    <div className="internships-list-portal container">
-      <header className="internships-header">INTERNSHIPS LIST</header>
+    <div className="internships-container">
+      {/* Header Section */}
+      <div className="internships-header-section">
+        <div className="header-content">
+          <h1 className="page-title">
+            <i className="fas fa-briefcase"></i>
+            Internships Management
+          </h1>
+          <p className="page-subtitle">Manage and organize your internship opportunities</p>
+        </div>
+        <div className="header-stats">
+          <div className="stat-card">
+            <span className="stat-number">{internships.length}</span>
+            <span className="stat-label">Total Internships</span>
+          </div>
+        </div>
+      </div>
 
-     
+      {/* Search and Filter Section */}
+      <div className="search-filter-section">
+        <div className="search-container">
+          <div className="search-input-wrapper">
+            <i className="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Search internships by title, company, or location..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+          </div>
+        </div>
+        
+        <div className="filter-container">
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="filter-select"
+          >
+            <option value="">All Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Main Content */}
       <main className="internships-main">
-        {internships.length === 0 ? (
-          <p className="no-internships">No internships found.</p>
+        {filteredInternships.length === 0 ? (
+          <div className="no-internships-container">
+            <div className="no-internships-content">
+              <i className="fas fa-inbox empty-icon"></i>
+              <h3>No internships found</h3>
+              <p>
+                {searchTerm || filterCategory 
+                  ? "Try adjusting your search or filter criteria" 
+                  : "No internships available at the moment"}
+              </p>
+            </div>
+          </div>
         ) : (
-          internships.map((internship) => (
-            <article key={internship._id} className="internship-card">
-              <div className="internship-image-container">
-                {internship.image ? (
-              <img src={`http://localhost:5000/uploads/${internship.image}`} alt="..." 
-                    className="internship-image"
-                
-                  />
-                ) : (
-                  <span className="no-image-text">No Image</span>
-                )}
-              </div>
+          <div className="internships-grid">
+            {filteredInternships.map((internship) => (
+              <article key={internship._id} className="internship-card">
+                {/* Card Header with Image */}
+                <div className="card-header">
+                  <div className="internship-image-container">
+                    {internship.image ? (
+                      <img 
+                        src={`http://localhost:5000/uploads/${internship.image}`} 
+                        alt={internship.title || "Internship"} 
+                        className="internship-image"
+                      />
+                    ) : (
+                      <div className="no-image-placeholder">
+                        <i className="fas fa-building"></i>
+                        <span>No Image</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="card-badge">
+                    {internship.category || "General"}
+                  </div>
+                </div>
 
-              <div className="internship-details">
-                <h2 className="internship-title">{internship.title || "NO TITLE"}</h2>
-                <p className="internship-company">{internship.company || "Unknown Company"}</p>
+                {/* Card Content */}
+                <div className="card-content">
+                  <div className="internship-header">
+                    <h2 className="internship-title">
+                      {internship.title || "NO TITLE"}
+                    </h2>
+                    <p className="internship-company">
+                      <i className="fas fa-building company-icon"></i>
+                      {internship.company || "Unknown Company"}
+                    </p>
+                  </div>
 
-                <p className="internship-location">
-                  <strong>Location:</strong> {internship.location || "N/A"}
-                </p>
-                <p className="internship-category">
-                  <strong>Category:</strong> {internship.category || "N/A"}
-                </p>
+                  <div className="internship-meta">
+                    <div className="meta-item">
+                      <i className="fas fa-map-marker-alt"></i>
+                      <span>{internship.location || "Remote"}</span>
+                    </div>
+                    {internship.closingDate && (
+                      <div className="meta-item closing-date">
+                        <i className="fas fa-calendar-alt"></i>
+                        <span>
+                          {new Date(internship.closingDate).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </div>
 
-                <p className="internship-description">{internship.description || "No description available."}</p>
+                  <div className="internship-description">
+                    <p>{internship.description || "No description available."}</p>
+                  </div>
+                </div>
 
-                {internship.closingDate && (
-                  <p className="internship-closing-date">
-                    Closing Date:{" "}
-                    {new Date(internship.closingDate).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                )}
-
-                <div className="internship-buttons">
+                {/* Card Actions */}
+                <div className="card-actions">
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => navigate(`/internship/${internship._id}`)}
+                    className="btn-view"
+                  >
+                    <i className="fas fa-eye"></i>
+                    View Details
+                  </Button>
                   <Button
                     variant="danger"
                     size="sm"
@@ -109,20 +223,22 @@ const DeleteInternships = () => {
                     disabled={deletingId === internship._id}
                     className="btn-delete"
                   >
-                    {deletingId === internship._id ? "Deleting..." : "Delete"}
-                  </Button>
-                  <Button
-                    variant="outline-primary"
-                    size="sm"
-                    onClick={() => navigate(`/internship/${internship._id}`)}
-                    className="btn-view"
-                  >
-                    View Details
+                    {deletingId === internship._id ? (
+                      <>
+                        <Spinner animation="border" size="sm" className="me-1" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-trash"></i>
+                        Delete
+                      </>
+                    )}
                   </Button>
                 </div>
-              </div>
-            </article>
-          ))
+              </article>
+            ))}
+          </div>
         )}
       </main>
     </div>

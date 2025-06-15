@@ -11,12 +11,12 @@ const JobsList = ({ jobs = [] }) => {
         <div className="container ">
           <div className="row justify-content-center text-center">
             <div className="col-lg-12 ms-5  col-md-10 col-sm-12 ">
-              <div className="hero-content ">
-                <h1  className="hero-title text-align-center ">
+              <div className="hero-content  mt-5 pt-5">
+                <h4  style={{paddingTop:"15rem", textAlign:"center"}} className="hero-title text-align-center mt-5 pt-5 ">
                   Welcome to Your Dream Career
-                </h1>
+                </h4>
                 <p className="hero-subtitle">
-                  Discover thousands of exciting job opportunities from top companies around the world. 
+                  Discover thousands of exciting job opportunities from top companies  around the world. <br></br> 
                   Your perfect career match is just a click away!
                 </p>
                 <div className="hero-stats">
@@ -37,13 +37,9 @@ const JobsList = ({ jobs = [] }) => {
             </div>
           </div>
         </div>
+        
       </div>
-
-      {/* Jobs Section */}
-      <section className="jobs-list-section">
-        <div className="container">
-          <div className="row mb-5">
-            <div className="col-12 text-center">
+      <div className="col-12 text-center">
               <div className="section-header">
                 <span className="section-badge">Opportunities</span>
                 <h2 className="section-title">Featured Job Openings</h2>
@@ -52,6 +48,12 @@ const JobsList = ({ jobs = [] }) => {
                 </p>
               </div>
             </div>
+
+      {/* Jobs Section */}
+      <section className="jobs-list-section">
+        <div className="container">
+          <div className="row mb-5">
+            
           </div>
 
           <div className="row g-4">
