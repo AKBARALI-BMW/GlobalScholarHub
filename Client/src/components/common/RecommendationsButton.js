@@ -59,7 +59,7 @@ const RecommendationsButton = () => {
         disabled={isLoading}
         className={isLoading ? 'loading' : ''}
       >
-        {isLoading ? 'Loading...' : 'Get Smart Career Recommendations'}
+        {isLoading ? 'Loading...' : 'Recommendations'}
       </button>
     </div>
   );

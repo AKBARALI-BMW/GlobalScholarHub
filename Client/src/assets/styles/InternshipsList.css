@@ -202,7 +202,7 @@ html, body {
 
 /* Internship Cards */
 .internships-grid {
-  max-width: 100%;
+  max-width: 100% !important;
   overflow: hidden;
 }
 
@@ -211,7 +211,8 @@ html, body {
   color: inherit;
   display: block;
   width: 100%;
-  max-width: 100%;
+  max-width: 100% !important;
+
 }
 
 .internship-card-wrapper:hover {
@@ -228,8 +229,9 @@ html, body {
   position: relative;
   height: 100%;
   border: 1px solid #f1f5f9;
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
+
 }
 
 .internship-card::before {
@@ -281,6 +283,7 @@ html, body {
   height: 220px;
   overflow: hidden;
   background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+   
 }
 
 .internship-image {
@@ -353,9 +356,10 @@ html, body {
 /* Card Details */
 .internship-details {
   padding: 30px 25px 25px;
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   overflow: hidden;
+
 }
 
 .company-info {

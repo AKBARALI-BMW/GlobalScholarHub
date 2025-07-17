@@ -41,20 +41,16 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           {/* <Route path="/jobs/:id" element={<JobDetail />} /> */}
         
-
           <Route path='/jobs' element={<JobsPage />} />
           <Route path="/dltjob" element={<AdminRoute><JobsDelete /></AdminRoute>} />
           <Route path="/postjob" element={<AdminRoute><PostJobForm /></AdminRoute>} />
           <Route path="/jobs/:id" element={<JobDetailPage />} />
           <Route path="/userdashboard" element={<UserDashboard />} />
-         
-
 
           <Route path="/scholarships" element={<ScholarshipsPage />} />
           <Route path="/postscholarship" element={<AdminRoute><PostScholarshipForm /></AdminRoute>} />
           <Route path="/dltscholarship" element={<AdminRoute><DeleteScholarships /></AdminRoute>} />
           <Route path="/scholarships/:id" element={<ScholarshipDetailPage />} />
-
 
           <Route path="/internships" element={<InternshipsPage />} />
           <Route path="/postinternship" element={<AdminRoute><PostInternshipForm /> </AdminRoute>} />
@@ -63,8 +59,6 @@ function App() {
           {/* <Route path="recomendationLanding" element={<RecommendationLanding />} /> */}
           <Route path="/recomendationForm" element={<RecommendationForm />} />
            
-
-
 
                  <Route path="/admin"element={ <AdminRoute><Dashboard /></AdminRoute>}/>
 

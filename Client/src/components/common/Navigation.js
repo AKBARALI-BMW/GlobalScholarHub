@@ -8,7 +8,7 @@ const Navigation = () => {
 
   return (
     <nav className="nav">
-      <ul>
+      <ul className="flex space-x-4 items-center"> {/* Flex row with spacing */}
         <li>
           <Link to="/" className="nav-link">Home</Link>
         </li>
@@ -25,18 +25,16 @@ const Navigation = () => {
           <Link to="/about" className="nav-link">About</Link>
         </li>
 
-        {/* Admin Dashboard link visible only to admin */}
         {isAdmin && (
           <li>
             <Link to="/admin" className="admin-link">Admin Dashboard</Link>
           </li>
         )}
 
-        {/* User Dashboard link for non-admin */}
         {!isAdmin && user && (
           <li>
             <Link to="/userdashboard" className="user-dashboard-link">
-              User Dashboard
+              Dashboard
             </Link>
           </li>
         )}
@@ -45,4 +43,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;
